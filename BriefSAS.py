@@ -191,17 +191,3 @@ with engine.connect() as conn:
     result = conn.execute(stmt)
     for row in result:
         print(f"Tabagisme: {row.smoking} - Âge moyen: {row.avg_age:.2f}")
-# Quelle est la moyenne d'âge (age) pour chaque catégorie de tabagisme (smoking) ?
-stmt = (
-    select(
-        table.c.smoking,
-        func.avg(table.c.age).label("moyenne_age")
-    )
-    .group_by(table.c.smoking)
-    .order_by(table.c.smoking)
-)
-
-with engine.connect() as conn:
-    result = conn.execute(stmt)
-    for row in result:
-        print(f"Tabagisme: {row.smoking} - Moyenne d'âge: {row.moyenne_age:.2f}")
